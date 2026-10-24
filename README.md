@@ -21,9 +21,21 @@ cinebook/
 │   ├── check.sql        latest bookings, seats and log (proof of storage)
 │   ├── show_all.sql     every table, constraint, object and row
 │   └── test_results.txt output of the last test run
-├── docs/                ER diagram and architecture diagram
+├── docs/                ER diagram, architecture diagram and screenshots
 └── report/              project report (PDF)
 ```
+
+## Screenshots
+
+| Showtimes | Seat selection |
+|---|---|
+| ![Showtimes](docs/screenshots/showtimes.png) | ![Seat selection](docs/screenshots/seat-selection.png) |
+| **Booking confirmed** | **My tickets (cancelled with refund)** |
+| ![Booking confirmed](docs/screenshots/booking-confirmed.png) | ![My tickets](docs/screenshots/my-tickets.png) |
+| **Reports with PL/SQL output** | **Booking log (written by procedure and trigger)** |
+| ![Reports](docs/screenshots/reports.png) | ![Booking log](docs/screenshots/booking-log.png) |
+| **Package and triggers VALID in SQL*Plus** | **The app's booking, read in SQL*Plus** |
+| ![SQL*Plus status](docs/screenshots/sqlplus-status.png) | ![SQL*Plus check](docs/screenshots/sqlplus-check.png) |
 
 ![ER diagram](docs/er_diagram.png)
 
@@ -64,7 +76,7 @@ Pages:
 | My tickets | upcoming, past and cancelled bookings, cancel with refund | `cancel_booking()`, `trg_booking_cancel`, `refund_calc()` |
 | Reports | totals, per-show occupancy and revenue, PL/SQL report output, audit log | `show_report()` and `daily_schedule()` via DBMS_OUTPUT, `booking_log` |
 
-API documentation for every endpoint: http://localhost:8000/docs
+While the server is running, interactive documentation for every endpoint is available at `/docs` (for example http://localhost:8000/docs).
 
 ## Rubric coverage
 
