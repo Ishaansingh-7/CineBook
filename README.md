@@ -6,11 +6,9 @@ Oracle AI Database 26ai Free + PL/SQL · Python FastAPI (python-oracledb) · des
 
 ```
 cinebook/
-├── CineBook.pyw         desktop launcher (double-click, or via the shortcut)
-├── make_shortcut.py     creates the CineBook desktop shortcut
 ├── api/
 │   ├── main.py          FastAPI server: REST API under /api, serves the web app
-│   └── desktop.py       starts the server and opens the app window
+│   └── desktop.py       opens the app in its own window
 ├── web/                 front-end (HTML, CSS, JavaScript, bundled fonts)
 ├── sql/
 │   ├── 00_user.sql      create the MOVIE schema (run once, as SYSDBA)
@@ -31,7 +29,7 @@ cinebook/
 
 ## 1. Database
 
-Open Command Prompt in the `sql` folder.
+From the `sql` folder:
 
 ```
 sqlplus / as sysdba
@@ -48,16 +46,12 @@ sqlplus movie/movie123@localhost:1521/FREEPDB1
 
 ## 2. Run the app
 
-One-time setup, in Command Prompt from this folder:
-
 ```
-python -m pip install -r api\requirements.txt
-python make_shortcut.py
+pip install -r api/requirements.txt
+python api/main.py
 ```
 
-After that, double-click **CineBook** on the desktop. It opens in its own window (Microsoft Edge app mode) with the server running in the background; closing the window stops everything. Fonts are bundled, so it works without internet.
-
-For development, `python api\main.py` runs the server in a console and opens http://localhost:8000 in the browser.
+The app is served at http://localhost:8000. To open it in its own window instead of a browser tab, run `python api/desktop.py`. Fonts are bundled, so it works offline. Database connection settings can be changed with the `DB_USER`, `DB_PASS` and `DB_DSN` environment variables.
 
 Pages:
 
