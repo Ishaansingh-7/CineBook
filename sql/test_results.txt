@@ -1,0 +1,152 @@
+
+===== TC01: Available seats for a new show =====
+TC01 PASS: 40 of 40 seats free                                                                                                                                  
+
+===== TC02: Book two regular seats (A1, A2) =====
+
+BOOKING_ID    USER_ID    SHOW_ID TOTAL_AMOUNT STATUS                                                                                                            
+---------- ---------- ---------- ------------ ----------                                                                                                        
+         1          1          1          360 CONFIRMED                                                                                                         
+TC02 PASS: booking 1 created, 38 seats left                                                                                                                     
+
+===== TC03: Trigger prices premium seats at 1.5x and updates total (D1, D2) =====
+
+BOOKING_ID SEAT  SEAT_TYPE      PRICE                                                                                                                           
+---------- ----- --------- ----------                                                                                                                           
+         1 A1    REGULAR          180                                                                                                                           
+         1 A2    REGULAR          180                                                                                                                           
+         2 D1    PREMIUM          270                                                                                                                           
+         2 D2    PREMIUM          270                                                                                                                           
+TC03 PASS: regular total Rs 360, premium total Rs 540                                                                                                           
+
+===== TC04: Double booking is blocked and nothing is saved =====
+TC04 PASS: ORA-20003: Seat A2 already booked (A3 rolled back, 36 seats still free)                                                                              
+
+===== TC05: Invalid seat label =====
+TC05 PASS: ORA-20002: Invalid seat Z9                                                                                                                           
+
+===== TC06: Empty seat list =====
+TC06 PASS: ORA-20004: No seats selected                                                                                                                         
+
+===== TC07: More than 6 seats in one booking =====
+TC07 PASS: ORA-20009: Maximum 6 seats per booking                                                                                                               
+
+===== TC08: Booking a show that has already started =====
+TC08 PASS: ORA-20001: Show has already started                                                                                                                  
+
+===== TC09: Cancel more than 2 hours before the show (100% refund) =====
+
+BOOKING_ID STATUS     TOTAL_AMOUNT                                                                                                                              
+---------- ---------- ------------                                                                                                                              
+         1 CANCELLED           360                                                                                                                              
+
+BOOKING_ID ACTION         AMOUNT                                                                                                                                
+---------- ---------- ----------                                                                                                                                
+         1 BOOKED            360                                                                                                                                
+         1 CANCELLED         360                                                                                                                                
+TC09 PASS: refund Rs 360, seats A1 and A2 released                                                                                                              
+
+===== TC10: Cancelling the same booking twice =====
+TC10 PASS: ORA-20006: Booking already cancelled                                                                                                                 
+
+===== TC11: A released seat can be booked again =====
+
+BOOKING_ID    USER_ID TOTAL_AMOUNT STATUS                                                                                                                       
+---------- ---------- ------------ ----------                                                                                                                   
+         5          3          180 CONFIRMED                                                                                                                    
+TC11 PASS: A1 rebooked as booking 5                                                                                                                             
+
+===== TC12: Cancel within 2 hours of the show (50% refund) =====
+
+BOOKING_ID ACTION         AMOUNT                                                                                                                                
+---------- ---------- ----------                                                                                                                                
+         6 BOOKED            400                                                                                                                                
+         6 CANCELLED         200                                                                                                                                
+TC12 PASS: paid Rs 400, refund Rs 200                                                                                                                           
+
+===== TC13: Phone number CHECK constraint =====
+TC13 PASS: ORA-02290: check constraint (MOVIE.CHK_USERS_PHONE) violated                                                                                         
+
+===== TC14: Seat map for show 1 (REF CURSOR) =====
+
+   SEAT_ID ROW    SEAT_NO SEAT_TYPE      PRICE STATUS                                                                                                           
+---------- --- ---------- --------- ---------- ----------                                                                                                       
+         1 A            1 REGULAR          180 BOOKED                                                                                                           
+         2 A            2 REGULAR          180 FREE                                                                                                             
+         3 A            3 REGULAR          180 FREE                                                                                                             
+         4 A            4 REGULAR          180 FREE                                                                                                             
+         5 A            5 REGULAR          180 FREE                                                                                                             
+         6 A            6 REGULAR          180 FREE                                                                                                             
+         7 A            7 REGULAR          180 FREE                                                                                                             
+         8 A            8 REGULAR          180 FREE                                                                                                             
+         9 B            1 REGULAR          180 FREE                                                                                                             
+        10 B            2 REGULAR          180 FREE                                                                                                             
+        11 B            3 REGULAR          180 FREE                                                                                                             
+        12 B            4 REGULAR          180 FREE                                                                                                             
+        13 B            5 REGULAR          180 FREE                                                                                                             
+        14 B            6 REGULAR          180 FREE                                                                                                             
+        15 B            7 REGULAR          180 FREE                                                                                                             
+        16 B            8 REGULAR          180 FREE                                                                                                             
+        17 C            1 REGULAR          180 FREE                                                                                                             
+        18 C            2 REGULAR          180 FREE                                                                                                             
+        19 C            3 REGULAR          180 FREE                                                                                                             
+        20 C            4 REGULAR          180 FREE                                                                                                             
+        21 C            5 REGULAR          180 FREE                                                                                                             
+        22 C            6 REGULAR          180 FREE                                                                                                             
+        23 C            7 REGULAR          180 FREE                                                                                                             
+        24 C            8 REGULAR          180 FREE                                                                                                             
+        25 D            1 PREMIUM          270 BOOKED                                                                                                           
+        26 D            2 PREMIUM          270 BOOKED                                                                                                           
+        27 D            3 PREMIUM          270 FREE                                                                                                             
+        28 D            4 PREMIUM          270 FREE                                                                                                             
+        29 D            5 PREMIUM          270 FREE                                                                                                             
+        30 D            6 PREMIUM          270 FREE                                                                                                             
+        31 D            7 PREMIUM          270 FREE                                                                                                             
+        32 D            8 PREMIUM          270 FREE                                                                                                             
+        33 E            1 PREMIUM          270 FREE                                                                                                             
+        34 E            2 PREMIUM          270 FREE                                                                                                             
+        35 E            3 PREMIUM          270 FREE                                                                                                             
+        36 E            4 PREMIUM          270 FREE                                                                                                             
+        37 E            5 PREMIUM          270 FREE                                                                                                             
+        38 E            6 PREMIUM          270 FREE                                                                                                             
+        39 E            7 PREMIUM          270 FREE                                                                                                             
+        40 E            8 PREMIUM          270 FREE                                                                                                             
+TC14 PASS: 40 seats returned, 3 booked (A1, D1, D2)                                                                                                             
+
+===== TC15: Show report (explicit cursor) =====
+Show 1: Inception | 25-Oct 10:00                                                                                                                                
+ID    Customer        Seats               Status     Amount                                                                                                     
+-----------------------------------------------------------                                                                                                     
+1     Ishaan Singh    A1,A2               CANCELLED  360                                                                                                        
+2     Aarav Mehta     D1,D2               CONFIRMED  540                                                                                                        
+5     Priya Sharma    A1                  CONFIRMED  180                                                                                                        
+-----------------------------------------------------------                                                                                                     
+Bookings: 3                                                                                                                                                     
+Occupancy: 3/40   Revenue: Rs 720                                                                                                                               
+TC15 PASS: report generated, expected occupancy 3/40 and revenue Rs 720                                                                                         
+
+===== TC16: Tomorrow's schedule (parameterised cursor) =====
+Schedule for Sun 25-Oct-2026                                                                                                                                    
+Time   Movie           Screen    Price    Free                                                                                                                  
+----------------------------------------------                                                                                                                  
+10:00  Inception       Screen 1  Rs 180   37                                                                                                                    
+10:00  Interstellar    Screen 2  Rs 180   40                                                                                                                    
+14:30  Interstellar    Screen 1  Rs 180   40                                                                                                                    
+14:30  RRR             Screen 2  Rs 180   40                                                                                                                    
+19:00  RRR             Screen 1  Rs 250   40                                                                                                                    
+19:00  3 Idiots        Screen 2  Rs 250   40                                                                                                                    
+TC16 PASS: schedule generated                                                                                                                                   
+
+===== Booking log =====
+
+    LOG_ID BOOKING_ID ACTION         AMOUNT LOGGED_AT                                                                                                           
+---------- ---------- ---------- ---------- --------------                                                                                                      
+         1          1 BOOKED            360 24-OCT 11:25                                                                                                        
+         2          2 BOOKED            540 24-OCT 11:25                                                                                                        
+         3          1 CANCELLED         360 24-OCT 11:25                                                                                                        
+         4          5 BOOKED            180 24-OCT 11:25                                                                                                        
+         5          6 BOOKED            400 24-OCT 11:25                                                                                                        
+         6          6 CANCELLED         200 24-OCT 11:25                                                                                                        
+
+===== Summary =====
+16 of 16 test cases passed                                                                                                                                      

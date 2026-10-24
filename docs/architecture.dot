@@ -1,0 +1,33 @@
+digraph architecture {
+  graph [rankdir=LR, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.9, fontname="Helvetica"];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge  [color="#444444", penwidth=1.3, fontname="Helvetica", fontsize=10, dir=both, arrowtail=normal, arrowhead=normal];
+
+  browser [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="6" color="#333333">
+      <tr><td bgcolor="#6a1027"><font color="white"><b>Web browser</b></font></td></tr>
+      <tr><td align="left">index.html, styles.css, app.js</td></tr>
+      <tr><td align="left">Showtimes, seat map, tickets,<br align="left"/>reports (hash routing)</td></tr>
+    </table>>];
+
+  api [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="6" color="#333333">
+      <tr><td bgcolor="#1f3a5f"><font color="white"><b>Application server</b></font></td></tr>
+      <tr><td align="left">Python 3.14, FastAPI, Uvicorn</td></tr>
+      <tr><td align="left">REST endpoints under /api</td></tr>
+      <tr><td align="left">python-oracledb connection pool</td></tr>
+      <tr><td align="left">Serves the web files</td></tr>
+    </table>>];
+
+  db [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="6" color="#333333">
+      <tr><td bgcolor="#1d1a2b"><font color="white"><b>Oracle AI Database 26ai Free</b></font></td></tr>
+      <tr><td align="left">PDB FREEPDB1, schema MOVIE</td></tr>
+      <tr><td align="left">8 tables, constraints, indexes</td></tr>
+      <tr><td align="left">Package movie_pkg</td></tr>
+      <tr><td align="left">3 triggers</td></tr>
+    </table>>];
+
+  browser -> api [label="  HTTP + JSON  "];
+  api -> db [label="  SQL, PL/SQL calls  "];
+}
