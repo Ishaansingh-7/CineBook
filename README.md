@@ -21,8 +21,7 @@ cinebook/
 │   ├── check.sql        latest bookings, seats and log (proof of storage)
 │   ├── show_all.sql     every table, constraint, object and row
 │   └── test_results.txt output of the last test run
-├── docs/                ER diagram, architecture diagram and screenshots
-└── report/              project report (PDF)
+└── docs/                ER diagram, architecture diagram and screenshots
 ```
 
 ## Screenshots
