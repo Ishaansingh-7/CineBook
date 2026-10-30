@@ -23,6 +23,12 @@ pool = oracledb.create_pool(
     max=4,
 )
 
+try:
+    with pool.acquire() as _con:
+        _con.cursor().callproc("add_upcoming_shows")
+except oracledb.Error:
+    pass
+
 app = FastAPI(title="CineBook API", version="2.0")
 api = APIRouter(prefix="/api")
 

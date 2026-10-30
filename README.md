@@ -16,8 +16,9 @@ cinebook/
 │   ├── 02_data.sql      sample users, movies, screens, 80 seats, shows
 │   ├── 03_plsql.sql     movie_pkg package + 3 triggers
 │   ├── 04_tests.sql     16 test cases, PASS/FAIL + summary
-│   ├── run_all.sql      runs 01 → 04
-│   ├── reset.sql        drops everything, then runs 01 → 04
+│   ├── 05_auto_shows.sql daily scheduler job that keeps a week of shows
+│   ├── run_all.sql      runs 01 → 05
+│   ├── reset.sql        drops everything, then runs 01 → 05
 │   ├── check.sql        latest bookings, seats and log (proof of storage)
 │   ├── show_all.sql     every table, constraint, object and row
 │   └── test_results.txt output of the last test run
@@ -53,6 +54,7 @@ sqlplus movie/movie123@localhost:1521/FREEPDB1
 
 - `03_plsql.sql` ends with a status table: the package, package body and 3 triggers must all say **VALID**.
 - `04_tests.sql` ends with **16 of 16 test cases passed**.
+- `05_auto_shows.sql` creates `add_upcoming_shows` and the `ADD_SHOWS_JOB` scheduler job, which runs every night and keeps the next 7 days of shows filled. The app also calls it on start-up.
 - To start over with fresh data, use `@reset.sql` instead of `@run_all.sql`.
 
 ## 2. Run the app
